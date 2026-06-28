@@ -1,405 +1,212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SMARTS | Dashboard</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="<?= SYS_URL ?>assets/plugins/summernote/summernote-bs4.min.css">
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?= SYS_URL ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+        <title>SMARTS</title>
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+        <!-- CSS FILES -->                
+        <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="<?= SYS_URL ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SMARTS</span>
-    </a>
+        <link href="<?= WEB_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?= SYS_URL ?>assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block"><?= $_SESSION['first_name'] ?> <?= $_SESSION['last_name'] ?></a>
-        </div>
-      </div>
+        <link href="<?= WEB_URL ?>assets/css/bootstrap-icons.css" rel="stylesheet">
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+        <link href="<?= WEB_URL ?>assets/css/templatemo-tiya-golf-club.css" rel="stylesheet">
+        
 
-      <!-- Sidebar Menu -->
-      <?php $current = $_SERVER['REQUEST_URI']; ?>
+    </head>
+    
+    <body>
 
-        <?php
+        <main>
 
-        $conn = dbConnect();
-        $user_id = $_SESSION['user_id'];
+            <nav class="navbar navbar-expand-lg" style="background-color:rgb(61,64,91)">                
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="<?= WEB_URL ?>index.php">
+                        <img src="<?= WEB_URL ?>assets/images/logo.png" class="navbar-brand-image img-fluid" alt="Tiya Golf Club">
+                        <span class="navbar-brand-text">
+                            Sujatha Balika
+                            <small>සැමට පෙර යුතුකම</small>
+                        </span>
+                    </a>
 
-        // 🔹 Get user role
-        $stmt = $conn->prepare("SELECT role_id FROM users WHERE id = ?");
-        $stmt->execute([$user_id]);
-
-        $role_id = $stmt->fetchColumn();
-
-        // 🔹 Load allowed modules for this role
-        $sql = "
-SELECT m.*
-FROM modules m
-JOIN role_permissions rp ON rp.module_id = m.id
-WHERE rp.role_id = ?
-ORDER BY m.module_index ASC
-";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$role_id]);
-        $modules = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // 🔹 Build tree
-        $tree = [];
-
-        foreach ($modules as $m) {
-
-            if ($m['parent_id'] == NULL) {
-                $tree[$m['id']] = $m;
-                $tree[$m['id']]['children'] = [];
-            }
-        }
-
-        foreach ($modules as $m) {
-            if ($m['parent_id'] != NULL && isset($tree[$m['parent_id']])) {
-                $tree[$m['parent_id']]['children'][] = $m;
-            }
-        }
-
-        ?>
-
-
-
-<nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column"
-                        data-widget="treeview"
-                        role="menu"
-                        data-accordion="false">
-
-                        <?php foreach ($tree as $parent): ?>
-                            <?php
-                            $isParentActive = false;
-
-                            foreach ($parent['children'] as $child) {
-                                if (strpos($current, $child['url']) !== false) {
-                                    $isParentActive = true;
-                                    break;
-                                }
-                            }
-                            ?>
-                            <!-- 🔹 MAIN MENU -->
-                            <li class="nav-item <?= $isParentActive ? 'menu-open' : '' ?>">
-
-                                <?php if (!empty($parent['children'])): ?>
-
-                                    <!-- HAS CHILD -->
-                                    <a href="#" class="nav-link <?= $isParentActive ? 'active' : '' ?>">
-                                        <i class="nav-icon fas fa-folder"></i>
-                                        <p>
-                                            <?= $parent['module_name'] ?>
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-
-                                    <!-- SUB MENU -->
-                                    <ul class="nav nav-treeview">
-
-                                        <?php foreach ($parent['children'] as $child): ?>
-
-                                            <?php if ($child['ismenu'] == 1): ?>
-
-                                                <li class="nav-item">
-                                                    <a href="<?= SYS_URL . $child['url'] ?>" class="nav-link <?= strpos($current, $child['url']) !== false ? 'active' : '' ?>">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p><?= $child['module_name'] ?></p>
-                                                    </a>
-                                                </li>
-
-                                            <?php endif; ?>
-
-                                        <?php endforeach; ?>
-
-                                    </ul>
-
-                                <?php else: ?>
-
-                                    <!-- NO CHILD (DIRECT LINK) -->
-                                    <a href="<?= SYS_URL . $parent['url'] ?>" class="nav-link">
-                                        <i class="nav-icon fas fa-circle"></i>
-                                        <p><?= $parent['module_name'] ?></p>
-                                    </a>
-
-                                <?php endif; ?>
-
+                    <div class="d-lg-none ms-auto me-3">
+                        <a class="btn custom-btn custom-border-btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Login</a>
+                    </div>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="<?= WEB_URL ?>index.php">Home</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_2">About</a>
                             </li>
 
-                        <?php endforeach; ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= WEB_URL ?>application.php">Application</a>
+                            </li>
 
-                    </ul>
-                </nav>
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_4">Events</a>
+                            </li>
 
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_5">Contact Us</a>
+                            </li>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-       <?= $content ?>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2026 SMARTS</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
-    </div>
-  </footer>
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="event-listing.html">Event Listing</a></li>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+                                    <li><a class="dropdown-item" href="event-detail.html">Event Detail</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
-<!-- jQuery -->
-<script src="<?= SYS_URL ?>assets/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<?= SYS_URL ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="<?= SYS_URL ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="<?= SYS_URL ?>assets/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="<?= SYS_URL ?>assets/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="<?= SYS_URL ?>assets/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="<?= SYS_URL ?>assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="<?= SYS_URL ?>assets/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="<?= SYS_URL ?>assets/plugins/moment/moment.min.js"></script>
-<script src="<?= SYS_URL ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="<?= SYS_URL ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="<?= SYS_URL ?>assets/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="<?= SYS_URL ?>assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?= SYS_URL ?>assets/dist/js/adminlte.js"></script>
-<script src="<?= SYS_URL ?>assets/dist/js/pages/dashboard.js"></script>
-</body>
+                        <div class="d-none d-lg-block ms-lg-3">
+                            <a class="btn custom-btn custom-border-btn" href="<?= WEB_URL ?>login.php">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">                
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Member Login</h5>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column">
+                    <form class="custom-form member-login-form" action="#" method="post" role="form">
+
+                        <div class="member-login-form-body">
+                            <div class="mb-4">
+                                <label class="form-label mb-2" for="member-login-number">Membership No.</label>
+
+                                <input type="text" name="member-login-number" id="member-login-number" class="form-control" placeholder="11002560" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label mb-2" for="member-login-password">Password</label>
+
+                                <input type="password" name="member-login-password" id="member-login-password" pattern="[0-9a-zA-Z]{4,10}" class="form-control" placeholder="Password" required="">
+                            </div>
+
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                              
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <div class="col-lg-5 col-md-7 col-8 mx-auto">
+                                <button type="submit" class="form-control">Login</button>
+                            </div>
+
+                            <div class="text-center my-4">
+                                <a href="#">Forgotten password?</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="mt-auto mb-5">
+                        <p>
+                            <strong class="text-white me-3">Any Questions?</strong>
+
+                            <a href="tel: 010-020-0340" class="contact-link">
+                            	010-020-0340
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3D405B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+            </div>
+            <?= $content?? ''   ?>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
+                        <a class="navbar-brand d-flex align-items-center" href="index.html">
+                            <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="">
+                            <span class="navbar-brand-text">
+                                Tiya
+                                <small>Golf Club</small>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-12">
+                        <h5 class="site-footer-title mb-4">Join Us</h5>
+
+                        <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
+                            <span>Mon-Fri</span>
+                            6:00 AM - 6:00 PM
+                        </p>
+
+                        <p class="d-flex me-lg-3">
+                            <span>Sat-Sun</span>
+                            6:30 AM - 8:30 PM
+                        </p>
+                        <br>
+                        <p class="copyright-text">Copyright © 2048 Tiya Golf Club</p>
+                    </div>
+
+                        <div class="col-lg-2 col-12 ms-auto">
+                            <ul class="social-icon mt-lg-5 mt-3 mb-4">
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-instagram"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-whatsapp"></a>
+                                </li>
+                            </ul>
+                            <p class="copyright-text">Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>. Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a></p>
+                            
+                        </div>
+
+                </div>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#81B29A" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+        </footer>
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="<?= WEB_URL ?>assets/js/jquery.min.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/jquery.sticky.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/click-scroll.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/animated-headline.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/modernizr.js"></script>
+        <script src="<?= WEB_URL ?>assets/js/custom.js"></script>
+
+    </body>
 </html>
