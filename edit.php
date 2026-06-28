@@ -1,194 +1,192 @@
-
 <?php
 ob_start();
 include '../../init.php';
-if (!hasPermission('users/edit.php')) {
-    die("Access Denied");
-}
-
 $conn = dbConnect();
 
-// 🔹 Get user ID
+//Get ID
 $id = $_GET['id'] ?? null;
 
 if (!$id) {
-    die("Invalid User ID");
+    die("Invalid Module ID");
 }
 
-// 🔹 Load user data
-$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+//Load module data
+$stmt = $conn->prepare("SELECT * FROM modules WHERE id = ?");
 $stmt->execute([$id]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$module = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$user) {
-    die("User not found");
+if (!$module) {
+    die("Module not found");
 }
 
-// 🔹 Load roles
-$roles = $conn->query("SELECT * FROM roles")->fetchAll(PDO::FETCH_ASSOC);
+// 🔹 Load parent modules (exclude current to prevent self-parenting)
+    $parents = $conn->prepare("SELECT * FROM modules
+    WHERE parent_id IS NULL AND id != ?");
+$parents->execute([$id]);
+$parents = $parents->fetchAll(PDO::FETCH_ASSOC);
 
-// 🔹 UPDATE LOGIC
-if ($_POST) {
+//UPDATE LOGIC
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    extract($_POST);
+    $module_name  = trim($_POST['module_name']);
+    $url          = !empty($_POST['url']) ? trim($_POST['url']) : NULL;
+    $action       = !empty($_POST['action']) ? $_POST['action'] : NULL;
+    $parent_id    = !empty($_POST['parent_id']) ? $_POST['parent_id'] : NULL;
+    $module_index = $_POST['module_index'] ?? 1;
+    $ismenu       = $_POST['ismenu'];
 
-    try {
+    // Validation
+    if (empty($module_name)) {
+        echo "<div class='alert alert-danger'>Module name is required</div>";
+    } else {
 
-        // 🔹 If password entered → hash it
-        if (!empty($password)) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
-
-            $sql = "UPDATE users SET
-                        first_name = :fname,
-                        last_name = :lname,
-                        dob = :dob,
-                        gender = :gender,
-                        mobile_no = :mobile_no,
-                        whatsapp_no = :whatsapp_no,
-                        addressline_1 = :addressline_1,
-                        addressline_2 = :addressline_2,
-                        addressline_3 = :addressline_3,
-                        email = :email,
-                        password = :password,
-                        role_id = :role_id
-                    WHERE id = :id";
-
-            $stmt = $conn->prepare($sql);
-
-            $stmt->execute([
-                ':fname' => $first_name,
-                ':lname' => $last_name,
-                ':dob' => $dob,
-                ':gender' => $gender,
-                ':mobile_no' => $mobile_no,
-                ':whatsapp_no' => $whatsapp_no,
-                ':addressline_1' => $addressline_1,
-                ':addressline_2' => $addressline_2,
-                ':addressline_3' => $addressline_3,
-                ':email' => $email,
-                ':password' => $password,
-                ':role_id' => $role_id,
-                ':id' => $id
-            ]);
-        } else {
-            // 🔹 No password change
-            $sql = "UPDATE users SET
-                        first_name = :fname,
-                        last_name = :lname,
-                        dob = :dob,
-                        gender = :gender,
-                        mobile_no = :mobile_no,
-                        whatsapp_no = :whatsapp_no,
-                        addressline_1 = :addressline_1,
-                        addressline_2 = :addressline_2,
-                        addressline_3 = :addressline_3,
-                        email = :email,
-                        role_id = :role_id
-                    WHERE id = :id";
-
-            $stmt = $conn->prepare($sql);
-
-            $stmt->execute([
-                ':fname' => $first_name,
-                ':lname' => $last_name,
-                ':dob' => $dob,
-                ':gender' => $gender,
-                ':mobile_no' => $mobile_no,
-                ':whatsapp_no' => $whatsapp_no,
-                ':addressline_1' => $addressline_1,
-                ':addressline_2' => $addressline_2,
-                ':addressline_3' => $addressline_3,
-                ':email' => $email,
-                ':role_id' => $role_id,
-                ':id' => $id
-            ]);
+        // Main module logic
+        if ($parent_id == NULL) {
+            $action = NULL;
+            $url = NULL;
         }
 
-        header("Location: index.php?updated=1");
-        exit;
-    } catch (Exception $e) {
-        echo "<div class='alert alert-danger'>" . $e->getMessage() . "</div>";
+        try {
+
+            $conn->beginTransaction();
+
+            // 🔹 Duplicate check (exclude current record)
+            $check = $conn->prepare("
+                SELECT id FROM modules
+                WHERE module_name = :module_name
+                AND parent_id <=> :parent_id
+                AND id != :id");
+
+            $check->execute([
+                ':module_name' => $module_name,
+                ':parent_id'   => $parent_id,
+                ':id'          => $id
+            ]);
+
+            if ($check->rowCount() > 0) {
+                throw new Exception("Module already exists under this parent");
+            }
+
+            // 🔹 Update
+            $sql = "UPDATE modules SET
+                        module_name = :module_name,
+                        url = :url,
+                        action = :action,
+                        parent_id = :parent_id,
+                        module_index = :module_index,
+                        ismenu = :ismenu
+                    WHERE id = :id";
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->execute([
+                ':module_name'  => $module_name,
+                ':url'          => $url,
+                ':action'       => $action,
+                ':parent_id'    => $parent_id,
+                ':module_index' => $module_index,
+                ':ismenu'       => $ismenu,
+                ':id'           => $id
+            ]);
+
+            $conn->commit();
+
+            header("Location: index.php?updated=1");
+            exit;
+        } catch (Exception $e) {
+            $conn->rollBack();
+            echo "<div class='alert alert-danger'>" . $e->getMessage() . "</div>";
+        }
     }
 }
 ?>
 
-<h3>Edit User</h3>
+<h3>Edit Module</h3>
 
 <form method="POST">
 
-    <!-- First Name -->
-    <div class="mb-2">
-        <input name="first_name" class="form-control"
-            value="<?= $user['first_name'] ?>" required>
+    <!-- Module Name -->
+    <div class="mb-3">
+        <label class="form-label">Module Name</label>
+        <input name="module_name" class="form-control"
+            value="<?= $module['module_name'] ?>" required>
     </div>
 
-    <!-- Last Name -->
-    <div class="mb-2">
-        <input name="last_name" class="form-control"
-            value="<?= $user['last_name'] ?>" required>
+    <!-- URL -->
+    <div class="mb-3">
+        <label class="form-label">URL</label>
+        <input name="url" class="form-control"
+            value="<?= $module['url'] ?>">
     </div>
 
-    <!-- Date of Birth -->
-    <div class="mb-2">
-        <input name="dob" type="date" class="form-control"
-            value="<?= $user['dob'] ?>"
+    <!-- Action -->
+    <div class="mb-3">
+        <label class="form-label">Action</label>
+        <select name="action" class="form-control" id="actionField">
+            <option value="">-- Select Action --</option>
+            <option value="view" <?= $module['action'] == 'view' ? 'selected' : '' ?>>View</option>
+            <option value="add" <?= $module['action'] == 'add' ? 'selected' : '' ?>>Add</option>
+            <option value="edit" <?= $module['action'] == 'edit' ? 'selected' : '' ?>>Edit</option>
+            <option value="delete" <?= $module['action'] == 'delete' ? 'selected' : '' ?>>Delete</option>
+        </select>
     </div>
 
-    <!-- Gender -->
-    <div class="mb-2">
-        <input name="gender" type="text" class="form-control"
-            value="<?= $user['gender'] ?>"
-    </div>      
-
-     <!-- Mobile No -->
-     <div class="mb-2">
-        <input name="mobile_no" type="text" class="form-control"
-            value="<?= $user['mobile_no'] ?>"
-     </div>     
-
-        <!-- Whatsapp No -->    
-        <div class="mb-2">
-            <input name="whatsapp_no" type="text" class="form-control"
-                value="<?= $user['whatsapp_no'] ?>"
-        </div>  
-
-        <!-- Address -->  
-        <div class="mb-2">
-            <input name="addressline_1" type="text" class="form-control mb-1"
-                value="<?= $user['addressline_1'] ?>" placeholder="Address Line 1">
-            <input name="addressline_2" type="text" class="form-control mb-1"
-                value="<?= $user['addressline_2'] ?>" placeholder="Address Line 2">
-            <input name="addressline_3" type="text" class="form-control"
-                value="<?= $user['addressline_3'] ?>" placeholder="Address Line 3">
-        </div>
-
-    <!-- Email -->
-    <div class="mb-2">
-        <input name="email" type="email" class="form-control"
-            value="<?= $user['email'] ?>" required>
+    <!-- Parent -->
+    <div class="mb-3">
+        <label class="form-label">Parent Module</label>
+        <select name="parent_id" class="form-control" id="parentField">
+            <option value="">-- Main Module --</option>
+            <?php foreach ($parents as $p): ?>
+                <option value="<?= $p['id'] ?>"
+                    <?= $module['parent_id'] == $p['id'] ? 'selected' : '' ?>>
+                    <?= $p['module_name'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
-    <!-- Password -->
-    <div class="mb-2">
-        <input name="password" type="password" class="form-control"
-            placeholder="Leave blank to keep current password">
+    <!-- Order -->
+    <div class="mb-3">
+        <label class="form-label">Menu Order</label>
+        <input name="module_index" type="number" class="form-control"
+            value="<?= $module['module_index'] ?>">
     </div>
 
-    <!-- Role -->
-<div class="mb-2">
-    <select name="role_id" class="form-control mb-2">
-        <?php foreach ($roles as $r): ?>
-            <option value="<?= $r['id'] ?>"><?= $r['role_name'] ?></option>
-        <?php endforeach; ?>
-    </select>     
-</div>
+    <!-- Menu -->
+    <div class="mb-3">
+        <label class="form-label">Show in Sidebar</label>
+        <select name="ismenu" class="form-control">
+            <option value="1" <?= $module['ismenu'] == 1 ? 'selected' : '' ?>>Yes</option>
+            <option value="0" <?= $module['ismenu'] == 0 ? 'selected' : '' ?>>No</option>
+        </select>
+    </div>
 
-    <button class="btn btn-primary">Update User</button>
+    <button class="btn btn-primary">Update Module</button>
 
 </form>
+
+<!-- 🔥 Smart UX Script -->
+<script>
+    function toggleAction() {
+        let parent = document.getElementById('parentField').value;
+        let action = document.getElementById('actionField');
+
+        if (parent === "") {
+            action.value = "";
+            action.disabled = true;
+        } else {
+            action.disabled = false;
+        }
+    }
+
+    // Run on load
+    toggleAction();
+
+    // Run on change
+    document.getElementById('parentField').addEventListener('change', toggleAction);
+</script>
 
 <?php
 $content = ob_get_clean();
 include '../layout.php';
 ?>
-
